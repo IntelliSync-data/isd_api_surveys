@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_survey_form_notification" model="ir.ui.view">
+        <field name="name">survey.survey.form.notification</field>
+        <field name="model">survey.survey</field>
+        <field name="inherit_id" ref="survey.survey_survey_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Add Mail to field after Restricted to -->
+            <xpath expr="//field[@name='restrict_user_ids']" position="after">
+                <field name="mail_to_employee_ids" widget="many2many_tags_avatar"
+                       options="{'no_create': True}"
+                       placeholder="Select employees to notify..."/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

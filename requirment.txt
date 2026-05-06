@@ -1,0 +1,71 @@
+Tạo một module bổ sung menu con API Tools trong Surveys, giúp:
+	1.	Liệt kê tất cả các Survey có trong hệ thống.
+	2.	Với mỗi survey:
+	•	Show endpoint (API URL) để submit câu trả lời.
+	•	Show các field/câu hỏi của survey đó, bao gồm:
+	•	question_id
+	•	question_type
+	•	question_title
+	•	answer_key (tên key dùng trong payload JSON để submit)
+	3.	Cho phép copy sample payload JSON để test trên Postman.
+	4.	(Optional) Có thể generate link /api/survey/{id}/submit + mẫu payload tương ứng.
+
+⸻
+
+🧩 TÍNH NĂNG CHI TIẾT CẦN PHÁT TRIỂN
+
+1. Menu
+	•	Module khi install xong sẽ tạo thêm menu:
+	•	Ví dụ: Survey > API Tools
+	•	Giao diện hiển thị dạng list hoặc kanban các Survey có sẵn.
+
+2. List Survey + API Info
+	•	Với mỗi survey, show:
+	•	Tên survey
+	•	ID
+	•	Trạng thái (open/closed)
+	•	Link public (nếu có)
+	•	API endpoint: /api/survey/{id}/submit
+	•	Sample payload JSON: Dựa trên các câu hỏi (question) của survey đó.
+
+3. Field Mapping
+	•	Với từng câu hỏi (survey.question), show:
+	•	Loại câu hỏi (question_type)
+	•	Câu hỏi (title)
+	•	Các lựa chọn (nếu applicable)
+	•	Tên key sẽ dùng trong JSON khi submit (mặc định là question_id, hoặc custom thêm answer_key cho dễ đọc)
+
+4. Copy to clipboard
+	•	Cho phép click để copy sample JSON:
+{
+  "survey_id": 5,
+  "answers": {
+    "question_1": "Hài lòng",
+    "question_2": "Rất hài lòng",
+    "question_3": ["Tư vấn", "Giá cả"]
+  }
+}
+
+5. (Optional) Tạo API route mới
+	•	Tạo 1 route /api/survey/{id}/submit
+	•	Khi gọi POST vào route đó kèm payload JSON → Tạo record vào survey.user_input và survey.user_input_line
+
+⸻
+
+🧠 CƠ SỞ DỮ LIỆU LIÊN QUAN
+	•	survey.survey: thông tin khảo sát
+	•	survey.question: các câu hỏi
+	•	survey.user_input: thông tin mỗi người submit
+	•	survey.user_input_line: chi tiết từng câu trả lời
+
+⸻
+
+📦 ĐẶC TẢ CHO DEV
+
+Module name: survey_api_helper
+Menu: Survey > API Helper
+Model phụ trợ (nếu cần): survey.api.helper
+External API route (RESTful): /api/survey/<int:survey_id>/submit
+Sample view: Tree + Form + Button “Copy Payload”
+
+Note: Những biến ở trên có thể không có trong odoo18.0 vì thế nên hãy làm cho phù hợp với odoo18.0.

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Add menu under Survey -->
+    <menuitem id="menu_survey_api_helper"
+              name="API Helper"
+              parent="survey.menu_surveys"
+              action="action_survey_api_helper"
+              sequence="100"/>
+
+</odoo>
