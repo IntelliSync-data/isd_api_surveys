@@ -1,4 +1,4 @@
-  name: Update ISD API SurveysEhub
+  name: Update ISD API Surveys Ehub
 
   on:
     push:
